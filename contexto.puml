@@ -1,0 +1,22 @@
+@startuml Sistema de Agendamento de Atendimentos Hospitalares
+
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/c4-PlantUML/master/C4_Context.puml
+
+Person(paciente, "Paciente", "Paciente que agenda consultas e procedimentos")
+Person(recepcionista, "Recepcionista", "Funcionário que gerencia os agendamentos e o atendimento")
+Person(profissional, "Profissional de Saúde", "Médico, terapeuta ou outro profissional que realiza atendimentos")
+
+System(sistemaAgendamento, "Sistema de Agendamento de Atendimentos Hospitalares", "Sistema central que gerencia consultas, exames e procedimentos")
+
+System_Ext(sistemaPagamento, "Sistema de Pagamento", "Sistema externo para processar pagamentos")
+System_Ext(sistemaConvenio, "Sistema de Convênio", "Sistema externo para verificar convênios e autorizações")
+System_Ext(servicoNotificacao, "Serviço de Notificação", "Serviço externo para envio de notificações")
+
+Rel(paciente, sistemaAgendamento, "Agenda consultas e procedimentos")
+Rel(recepcionista, sistemaAgendamento, "Gerencia os agendamentos")
+Rel(profissional, sistemaAgendamento, "Acessa prontuários e agenda consultas")
+Rel(sistemaAgendamento, sistemaPagamento, "Processa pagamentos")
+Rel(sistemaAgendamento, sistemaConvenio, "Verifica convênios")
+Rel(sistemaAgendamento, servicoNotificacao, "Envia notificações de lembrete")
+
+@enduml

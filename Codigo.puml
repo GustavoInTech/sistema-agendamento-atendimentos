@@ -1,0 +1,18 @@
+@startuml Sistema de Agendamento de Atendimentos Hospitalares
+
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/c4-PlantUML/master/C4_Component.puml
+
+
+class Agendamento {
+  -int id
+  -Date data
+  -String tipoAtendimento
+  -boolean confirmado
+
+  +void confirmarAtendimento()
+  +void cancelarAtendimento()
+  +void alterarData(Date novaData)
+  +String obterResumoAtendimento()
+}
+
+@enduml

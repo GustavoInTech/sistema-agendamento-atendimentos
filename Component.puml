@@ -1,0 +1,33 @@
+@startuml Sistema de Agendamento de Atendimentos Hospitalares - Component
+
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/c4-PlantUML/master/C4_Component.puml
+
+Container(springBootApp, "Spring Boot Application", "Backend - Spring Boot", "Sistema de Agendamento de Atendimentos Hospitalares")
+
+ContainerDb(postgresDB, "PostgreSQL", "Banco de Dados", "Armazena dados de agendamentos, prontuários, pagamentos, etc.")
+
+Component(agendamentoController, "AgendamentoController", "Controller", "Recebe requisições HTTP de agendamentos")
+Component(agendamentoService, "AgendamentoService", "Service", "Contém a lógica de negócios para agendamentos")
+Component(agendamentoRepository, "AgendamentoRepository", "Repository", "Interage com o banco de dados para agendamentos")
+
+Component(prontuarioController, "ProntuarioController", "Controller", "Recebe requisições HTTP de prontuários")
+Component(prontuarioService, "ProntuarioService", "Service", "Contém a lógica de negócios para prontuários")
+Component(prontuarioRepository, "ProntuarioRepository", "Repository", "Interage com o banco de dados para prontuários")
+
+Component(pagamentoController, "PagamentoController", "Controller", "Recebe requisições HTTP de pagamentos")
+Component(pagamentoService, "PagamentoService", "Service", "Contém a lógica de negócios para pagamentos")
+Component(pagamentoRepository, "PagamentoRepository", "Repository", "Interage com o banco de dados para pagamentos")
+
+Rel(agendamentoController, agendamentoService, "Chama")
+Rel(agendamentoService, agendamentoRepository, "Usa")
+Rel(agendamentoRepository, postgresDB, "Lê/Escreve dados")
+
+Rel(prontuarioController, prontuarioService, "Chama")
+Rel(prontuarioService, prontuarioRepository, "Usa")
+Rel(prontuarioRepository, postgresDB, "Lê/Escreve dados")
+
+Rel(pagamentoController, pagamentoService, "Chama")
+Rel(pagamentoService, pagamentoRepository, "Usa")
+Rel(pagamentoRepository, postgresDB, "Lê/Escreve dados")
+
+@enduml

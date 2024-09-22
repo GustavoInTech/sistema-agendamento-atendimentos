@@ -1,0 +1,34 @@
+@startuml Sistema de Agendamento de Atendimentos Hospitalares - Container
+
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/c4-PlantUML/master/C4_Container.puml
+
+Person(paciente, "Paciente", "Paciente que agenda consultas e procedimentos via Web ou Mobile")
+Person(recepcionista, "Recepcionista", "Funcionário que gerencia os agendamentos e o atendimento")
+Person(profissional, "Profissional de Saúde", "Médico, terapeuta ou outro profissional que realiza atendimentos")
+
+System_Boundary(sistemaAgendamento, "Sistema de Agendamento de Atendimentos Hospitalares") {
+    
+    Container(webApp, "Aplicação Web", "React", "Interface web para pacientes e recepcionistas")
+    Container(mobileApp, "Aplicação Mobile", "React Native", "Interface mobile para pacientes")
+    Container(springApp, "Back-end", "Spring Boot", "API que gerencia o agendamento, prontuário e pagamentos")
+    ContainerDb(database, "Banco de Dados", "PostgreSQL", "Armazena dados de pacientes, agendamentos e prontuários")
+    
+    Container_Ext(sistemaPagamento, "Sistema de Pagamento", "Sistema Externo", "Processa pagamentos")
+    Container_Ext(sistemaConvenio, "Sistema de Convênio", "Sistema Externo", "Verifica convênios e autorizações")
+    Container_Ext(servicoNotificacao, "Serviço de Notificação", "Sistema Externo", "Envia notificações de lembrete")
+}
+
+Rel(paciente, webApp, "Agenda consultas e procedimentos via Web")
+Rel(paciente, mobileApp, "Agenda consultas e procedimentos via Mobile")
+Rel(recepcionista, webApp, "Gerencia os agendamentos via Web")
+Rel(profissional, webApp, "Acessa prontuários e agenda consultas")
+
+Rel(webApp, springApp, "Faz requisições à API")
+Rel(mobileApp, springApp, "Faz requisições à API")
+Rel(springApp, database, "Lê e grava dados")
+
+Rel(springApp, sistemaPagamento, "Processa pagamentos")
+Rel(springApp, sistemaConvenio, "Verifica convênios")
+Rel(springApp, servicoNotificacao, "Envia notificações de lembrete")
+
+@enduml
